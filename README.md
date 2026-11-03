@@ -4,6 +4,8 @@ Portal de repaso de los **4 módulos de 2.º año de Desarrollo de Software**
 (curso 2DS-2025 A, profesor Francisco Arcides Canales Sorto).
 HTML, CSS y JavaScript puro. Sin frameworks. Listo para GitHub Pages.
 
+**Publicado:** https://marjo6.github.io/hub-2do/
+
 ## Qué incluye
 
 - Portada con identidad propia y navegación.

@@ -2,7 +2,7 @@
    HUB 2.º DS · A — Datos reales del año
    ------------------------------------------------------------
    Curso: 2DS-2025 A · Prof. Francisco Arcides Canales Sorto
-   Fuente: Google Classroom (26 trabajos de los módulos 1 a 4).
+   Fuente: Google Classroom (27 trabajos de los módulos 1 a 4).
 
    Este es el ÚNICO archivo que hay que editar para cambiar el
    contenido del portal. Cada objeto del arreglo es un módulo.
@@ -14,10 +14,10 @@
      area          para los filtros
      periodo       rango de fechas del módulo
      nota          referencia al promedio o material de notas
-     resumen       2 o 3 líneas con palabras propias
-     aprendizajes  3 o 4 cosas que aprendiste (arreglo)
+     resumen       2 o 3 líneas en primera persona (lo que hice)
+     aprendizajes  3 o 4 temas trabajados (arreglo)
      instrumentos  guías, rúbricas, listas de cotejo, exámenes
-     programas     software que instalaste y usaste
+     programas     software que usé en el módulo
      herramientas  lenguajes, librerías, frameworks, servicios
      actividades   [{ nombre, fecha, nota }] trabajos reales
      recursos      [{ nombre, url }] guías y documentación
@@ -34,7 +34,7 @@ window.MODULOS = [
     periodo: "feb – may 2025",
     nota: "Promedio de Módulo 1 + recuperación",
     resumen:
-      "Empezamos por lo básico: qué es un dato, cómo se modela y cómo se guarda sin duplicarse. Creaste bases en Access y en SQL Server con tablas, llaves, relaciones, formularios y consultas, y cerraste con un proyecto de biblioteca escolar.",
+      "Empecé por lo básico: qué es un dato, cómo se modela y cómo se guarda sin duplicarse. Creé bases en Access y SQL Server con tablas, llaves, relaciones, formularios y consultas, y cerré con un proyecto de biblioteca escolar.",
     aprendizajes: [
       "Modelar un problema en tablas: entidades, atributos, llave primaria y llave foránea.",
       "Crear bases de datos en Access y en SQL Server, y consultarlas con SELECT.",
@@ -138,7 +138,7 @@ window.MODULOS = [
     periodo: "jun – jul 2025",
     nota: "Promedio de Módulo 2 + nivelación",
     resumen:
-      "Pasaste de crear tablas a diseñar soluciones: consultas más complejas en SQL Server, comandos de Linux y GitHub para versionar, y una nivelación de C# en la Fundación Slim para llegar listo a la programación orientada a objetos.",
+      "Pasé de crear tablas a diseñar soluciones: consultas más complejas en SQL Server, comandos de Linux y GitHub para versionar, y una nivelación de C# en la Fundación Slim para llegar listo a la programación orientada a objetos.",
     aprendizajes: [
       "Escribir consultas SQL con filtros, orden, agrupación y combinación de tablas.",
       "Usar comandos de Linux y Git/GitHub para trabajar y versionar proyectos.",
@@ -227,7 +227,7 @@ window.MODULOS = [
     periodo: "jul – nov 2025",
     nota: "Promedio estimado de Módulo 3",
     resumen:
-      "El corazón del año: pensaste el software con UML y lo construiste en C# con clases, objetos, métodos y Windows Forms. Cerraste con una práctica integradora de clases y objetos evaluada con rúbrica.",
+      "El núcleo del año: pensé el software con UML y lo construí en C# con clases, objetos, métodos y Windows Forms. Cerré con una práctica integradora de clases y objetos evaluada con rúbrica.",
     aprendizajes: [
       "Modelar clases, atributos, métodos y relaciones con diagramas UML en StarUML.",
       "Escribir métodos en C# y reutilizar lógica mediante clases y objetos.",
@@ -328,7 +328,7 @@ window.MODULOS = [
     periodo: "sept – nov 2025",
     nota: "Promedio final de Módulo 4",
     resumen:
-      "Integraste todo en un proyecto Windows Form para un negocio real: equipos, investigación, prototipo, CRUD conectado a base de datos, interfaz innovadora y defensa en la feria de logros.",
+      "Integré todo en un proyecto Windows Form para un negocio real: equipos, investigación, prototipo, CRUD conectado a base de datos, interfaz innovadora y defensa en la feria de logros.",
     aprendizajes: [
       "Trabajar en equipo con roles y un cronograma de entrega.",
       "Investigar el problema y decidir la solución antes de programar.",

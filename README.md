@@ -10,7 +10,8 @@ HTML, CSS y JavaScript puro. Sin frameworks. Listo para GitHub Pages.
 
 - Portada con identidad propia y navegación.
 - Los 4 módulos reales del año, pintados desde `data/modulos.js`.
-- Ficha por módulo: resumen, periodo, promedio, aprendizajes, actividades reales con fecha y nota, instrumentos, programas, herramientas, recursos, evidencias y quiz.
+- Ficha por módulo: resumen, periodo, lo que trabajé, mis actividades con fecha, instrumentos, programas y herramientas que usé, guías, evidencias y quiz.
+- Las calificaciones están ocultas por defecto (ver [Notas de las tareas](#notas-de-las-tareas)).
 - Buscador en tiempo real y filtros por área.
 - Progreso del repaso guardado en el navegador (`localStorage`).
 - Quiz con retroalimentación inmediata.
@@ -56,7 +57,7 @@ Cada módulo es un objeto con esta forma:
   area: "Bases de datos",       // se usa para los filtros
   periodo: "feb – may 2025",
   nota: "Promedio de Módulo 1 + recuperación",
-  resumen: "2 o 3 líneas con palabras propias.",
+  resumen: "2 o 3 líneas en primera persona.",
   aprendizajes: ["...", "...", "..."],
   instrumentos: ["Guía...", "Rúbrica...", "Lista de cotejo..."],
   programas: ["Microsoft Access 2013", "SQL Server"],
@@ -83,6 +84,22 @@ Cada módulo es un objeto con esta forma:
 
 Las secciones de actividades, recursos y evidencias se ocultan solas si el
 arreglo está vacío, así que puedes añadir módulos nuevos sin tocar el HTML.
+
+## Notas de las tareas
+
+Por defecto el portal **no muestra calificaciones**: ni la nota de cada
+actividad ni el promedio del módulo. Los datos siguen en `data/modulos.js`
+para no perderlos.
+
+Para mostrarlas solo cuando la guía del profesor lo pida, abre `js/app.js` y
+cambia la constante:
+
+```js
+var MOSTRAR_NOTAS = false;  // → true para mostrar las notas
+```
+
+Con `true` reaparecen las notas de las actividades y la línea de promedio en
+la ficha del módulo. Vuelve a `false` cuando ya no hagan falta.
 
 ## Verlo en local
 

@@ -8,6 +8,10 @@
   var LS_TEMA = 'hub2:tema';
   var LS_REPASADOS = 'hub2:repasados';
 
+  // Cambiar a true SOLO si la guía del profesor pide mostrar las notas.
+  // Con false, las calificaciones de las actividades no se muestran.
+  var MOSTRAR_NOTAS = false;
+
   var $ = function (sel, raiz) { return (raiz || document).querySelector(sel); };
   var $$ = function (sel, raiz) { return Array.prototype.slice.call((raiz || document).querySelectorAll(sel)); };
 
@@ -189,12 +193,15 @@
 
   function actividades(m) {
     if (!m.actividades || !m.actividades.length) return '';
-    return '<div class="d-sec"><h3>Actividades del módulo</h3><ul class="acts">' +
+    return '<div class="d-sec"><h3>Mis actividades</h3><ul class="acts' +
+      (MOSTRAR_NOTAS ? '' : ' sin-notas') + '">' +
       m.actividades.map(function (a) {
         return '<li class="act">' +
           '<span class="act-n">' + esc(a.nombre) + '</span>' +
           '<span class="act-f">' + esc(a.fecha || '') + '</span>' +
-          '<span class="act-nota">' + esc(a.nota || '') + '</span>' +
+          (MOSTRAR_NOTAS && a.nota
+            ? '<span class="act-nota">' + esc(a.nota) + '</span>'
+            : '') +
           '</li>';
       }).join('') +
       '</ul></div>';
@@ -206,16 +213,16 @@
       '<span class="d-tag">' + esc(m.area || 'Módulo') + '</span>' +
       '<h2 id="dTitulo">' + esc(m.nombre) + '</h2>' +
       '<p class="d-doc">' + esc(m.docente || '') + '</p>' +
-      (m.periodo || m.nota
+      (m.periodo || (MOSTRAR_NOTAS && m.nota)
         ? '<p class="d-meta">' +
             (m.periodo ? '<span>' + esc(m.periodo) + '</span>' : '') +
-            (m.nota ? '<span>' + esc(m.nota) + '</span>' : '') +
+            (MOSTRAR_NOTAS && m.nota ? '<span>' + esc(m.nota) + '</span>' : '') +
           '</p>'
         : '') +
       '<p class="d-resumen">' + esc(m.resumen) + '</p>' +
 
       '<div class="d-sec">' +
-        '<h3>Lo que aprendiste</h3>' +
+        '<h3>Lo que trabajé</h3>' +
         '<div class="caja"><ul>' + (m.aprendizajes || []).map(function (a) {
           return '<li>' + esc(a) + '</li>';
         }).join('') + '</ul></div>' +
@@ -225,12 +232,12 @@
 
       '<div class="d-sec dos">' +
         caja('Instrumentos', m.instrumentos) +
-        caja('Programas', m.programas) +
-        caja('Herramientas', m.herramientas) +
-        enlaces('Recursos', m.recursos) +
+        caja('Programas que usé', m.programas) +
+        caja('Herramientas que usé', m.herramientas) +
+        enlaces('Guías y recursos', m.recursos) +
       '</div>' +
 
-      '<div class="d-sec">' + enlaces('Evidencias', m.evidencias) + '</div>' +
+      '<div class="d-sec">' + enlaces('Mis evidencias', m.evidencias) + '</div>' +
 
       '<div class="d-sec">' +
         '<h3>Quiz de repaso</h3>' +

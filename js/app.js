@@ -17,6 +17,12 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  function norm(s) {
+    return String(s == null ? '' : s)
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  }
+
   function leer(clave, porDefecto) {
     try {
       var v = localStorage.getItem(clave);
@@ -100,11 +106,12 @@
   }
   function coincide(m) {
     if (estado.area !== 'Todas' && m.area !== estado.area) return false;
-    var q = estado.q.trim().toLowerCase();
+    var q = norm(estado.q).trim();
     if (!q) return true;
-    var texto = [m.nombre, m.resumen, m.docente, m.area]
-      .concat(m.herramientas || [], m.programas || [])
-      .join(' ').toLowerCase();
+    var texto = norm([m.nombre, m.resumen, m.docente, m.area, m.periodo, m.nota]
+      .concat(m.herramientas || [], m.programas || [], m.instrumentos || [])
+      .concat((m.actividades || []).map(function (a) { return a.nombre; }))
+      .join(' '));
     return texto.indexOf(q) !== -1;
   }
 

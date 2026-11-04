@@ -90,6 +90,9 @@ code {
 }
 .top .wrap { display: flex; align-items: center; gap: 18px; min-height: 62px; }
 
+.quiz-intro { font-size: 14px; color: var(--mut); margin-bottom: 10px; }
+.quiz-intro b { color: var(--gr); }
+
 .marca {
   display: flex; align-items: center; gap: 10px;
   color: var(--tx); text-decoration: none;

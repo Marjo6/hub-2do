@@ -135,6 +135,20 @@ git push -u origin main
 > GitHub Pages distingue mayúsculas y minúsculas: respeta los nombres
 > `css/`, `js/` y `data/`.
 
+## Registro de prompts de IA (día 3)
+
+Prompts que más usé para construir y mejorar el portal, y para qué sirvió cada uno:
+
+| # | Prompt | Para qué sirvió |
+|---|--------|-----------------|
+| 1 | "Genera la estructura base de un portal estático (HTML, CSS y JS sin frameworks) para repasar módulos de un año escolar, con ficha por módulo, buscador, filtros y progreso guardado en localStorage." | Esqueleto inicial del portal (día 1). |
+| 2 | "Explica cómo pintar la lista de módulos desde un arreglo en data/modulos.js sin tocar el HTML." | Entendí el patrón de render dinámico. |
+| 3 | "¿Cómo hago un quiz de opción múltiple en JavaScript puro con retroalimentación inmediata y mejor puntaje guardado?" | Lógica del quiz y guardado del mejor puntaje (día 3). |
+| 4 | "Dame una lista de verificación de accesibilidad básica para un sitio estático: contraste, textos alternativos, navegación con Tab, idioma y orden de títulos." | Auditoría de accesibilidad del día 3. |
+| 5 | "¿Cómo respeto prefers-color-scheme y guardo la elección del usuario en localStorage?" | Modo claro/oscuro. |
+
+Toda la IA se usó como tutor: revisé y probé cada respuesta antes de integrarla.
+
 ## Créditos
 
 Contenido extraído de Google Classroom, curso **2DS-2025 A**, del profesor

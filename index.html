@@ -19,7 +19,8 @@
     </a>
     <nav aria-label="Navegación principal">
       <a href="#modulos">Módulos</a>
-      <a href="#como">Cómo repasar</a>
+      <a href="#coevaluacion">Coevaluación</a>
+<a href="#como">Cómo repasar</a>
     </nav>
     <button id="tema" class="icono" type="button" aria-label="Cambiar a modo claro" aria-pressed="false">
       <span aria-hidden="true">☾</span>
@@ -65,6 +66,28 @@
 
       <div class="grid" id="grid"></div>
       <p class="vacio" id="vacio" hidden>No hay módulos que coincidan. Prueba con otra palabra o quita el filtro.</p>
+    </div>
+  </section>
+
+  <section class="bloque" id="coevaluacion">
+    <div class="wrap">
+      <h2>Coevaluación del portal</h2>
+      <p class="intro">Si visitas este portal (como en la Feria de Portales), marca lo que cumple y copia el resumen para entregárselo al equipo.</p>
+      <div class="cotejo">
+        <input type="text" id="cEquipo" placeholder="Equipo que visitas" aria-label="Equipo que visitas" style="margin-bottom:10px;width:100%;max-width:320px">
+        <ul class="chk" id="cLista"></ul>
+        <label for="cGusto" style="display:block;margin-top:10px;font-weight:700">Lo que más me gustó</label>
+        <textarea id="cGusto" style="width:100%;min-height:54px;margin-top:6px"></textarea>
+        <label for="cMejora" style="display:block;margin-top:10px;font-weight:700">Lo que mejoraría</label>
+        <textarea id="cMejora" style="width:100%;min-height:54px;margin-top:6px"></textarea>
+        <label for="cPreg" style="display:block;margin-top:10px;font-weight:700">Pregunta de repaso que hice</label>
+        <textarea id="cPreg" style="width:100%;min-height:54px;margin-top:6px"></textarea>
+        <p style="margin-top:12px">
+          <button type="button" class="btn" id="cCopiar">Copiar resumen</button>
+          <button type="button" class="btn ghost" id="cLimpiar">Limpiar</button>
+          <span id="cEstado" style="margin-left:10px;color:var(--gr)"></span>
+        </p>
+      </div>
     </div>
   </section>
 

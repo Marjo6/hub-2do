@@ -5,8 +5,19 @@
   'use strict';
 
   var MODULOS = window.MODULOS || [];
+  var COTEJO = [
+    'El portal abre desde su enlace de GitHub Pages sin errores.',
+    'Se entiende qué es y cómo moverse en menos de 10 segundos.',
+    'Todos los módulos tienen ficha con instrumentos, programas, herramientas y recursos.',
+    'Los enlaces que probé abren.',
+    'El buscador o los filtros funcionan.',
+    'El quiz da retroalimentación al responder.',
+    'Se ve bien en celular.',
+    'Tiene identidad propia: nombre, colores y detalles creativos.'
+  ];
   var LS_TEMA = 'hub2:tema';
   var LS_REPASADOS = 'hub2:repasados';
+  var LS_MEJOR_QUIZ = 'hub2:mejorQuiz';
 
   // Cambiar a true SOLO si la guía del profesor pide mostrar las notas.
   // Con false, las calificaciones de las actividades no se muestran.
@@ -164,7 +175,12 @@
   function pintarQuiz(m) {
     var q = estado.quiz[m.id] || { respuestas: {}, aciertos: 0 };
     estado.quiz[m.id] = q;
+    var total = (m.quiz || []).length;
+    var respondidas = Object.keys(q.respuestas).length;
+    var mejor = leer(LS_MEJOR_QUIZ + ':' + m.id, 0);
     var html = '<div class="quiz" data-quiz="' + esc(m.id) + '">';
+    html += '<p class="quiz-intro">Responde las ' + total + ' preguntas. Retroalimentación inmediata. ' +
+      'Mejor puntaje guardado: <b>' + mejor + ' de ' + total + '</b>.</p>';
     (m.quiz || []).forEach(function (preg, i) {
       var elegida = q.respuestas[i];
       html += '<div class="preg" data-preg="' + i + '"><p>' + (i + 1) + '. ' + esc(preg.p) + '</p><div class="opciones">';
@@ -184,9 +200,12 @@
       }
       html += '</div>';
     });
-    var total = (m.quiz || []).length;
     html += '<p class="marcador">Aciertos: <b>' + q.aciertos + ' de ' + total + '</b>' +
-      (q.aciertos === total && total ? ' · ¡Módulo dominado!' : '') + '</p>';
+      (q.aciertos === total && total && respondidas === total ? ' - Modulo dominado!' : '') + '</p>';
+    if (respondidas === total && total) {
+      html += '<p class="marcador">Mejor puntaje: <b>' + Math.max(mejor, q.aciertos) + ' de ' + total + '</b></p>';
+    }
+    html += '<button type="button" class="btn ghost" data-reiniciar-quiz="' + esc(m.id) + '">Practicar de nuevo</button>';
     html += '</div>';
     return html;
   }
@@ -303,6 +322,18 @@
       var rep = e.target.closest('[data-repasado]');
       if (rep) alternarRepasado(rep.getAttribute('data-repasado'));
 
+      var reiniciar = e.target.closest('[data-reiniciar-quiz]');
+      if (reiniciar) {
+        var idR = reiniciar.getAttribute('data-reiniciar-quiz');
+        var mR = MODULOS.filter(function (x) { return x.id === idR; })[0];
+        if (mR) {
+          estado.quiz[idR] = { respuestas: {}, aciertos: 0 };
+          pintarDetalle(mR);
+          $('#cerrar').focus();
+        }
+        return;
+      }
+
       var op = e.target.closest('[data-op]');
       if (op && !op.disabled) {
         var quizEl = op.closest('[data-quiz]');
@@ -315,6 +346,13 @@
         if (!m || !qz || qz.respuestas[iPreg] !== undefined) return;
         qz.respuestas[iPreg] = iOp;
         if (iOp === m.quiz[iPreg].correcta) qz.aciertos++;
+        // guardar mejor puntaje si se completó el quiz
+        var total = (m.quiz || []).length;
+        var respondidas = Object.keys(qz.respuestas).length;
+        if (respondidas === total && total) {
+          var prev = leer(LS_MEJOR_QUIZ + ':' + id, 0);
+          if (qz.aciertos > prev) guardar(LS_MEJOR_QUIZ + ':' + id, qz.aciertos);
+        }
         pintarDetalle(m);
         $('#cerrar').focus();
       }
@@ -335,6 +373,44 @@
     });
   }
 
+  /* ---------------- coevaluación (día 2) ---------------- */
+  function iniciarCotejo() {
+    var lista = $('#cLista');
+    if (!lista) return;
+    lista.innerHTML = COTEJO.map(function (t, i) {
+      return '<li><label><input type="checkbox" class="cj" data-cj="' + i + '"><span>' + esc(t) + '</span></label></li>';
+    }).join('');
+
+    var btnCopiar = $('#cCopiar');
+    if (btnCopiar) btnCopiar.addEventListener('click', function () {
+      var cjs = lista.querySelectorAll('.cj');
+      var md = '### Coevaluación del portal: ' + (($('#cEquipo').value || '').trim() || 'equipo sin nombre') + '\\n\\n';
+      for (var i = 0; i < cjs.length; i++) {
+        md += '- [' + (cjs[i].checked ? 'x' : ' ') + '] ' + COTEJO[i] + '\\n';
+      }
+      md += '\\n**Lo que más me gustó:** ' + (($('#cGusto').value || '').trim()) + '\\n\\n';
+      md += '**Lo que mejoraría:** ' + (($('#cMejora').value || '').trim()) + '\\n\\n';
+      md += '**Pregunta de repaso que hice:** ' + (($('#cPreg').value || '').trim()) + '\\n';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(md).then(function () {
+          $('#cEstado').textContent = 'Copiado';
+          setTimeout(function () { $('#cEstado').textContent = ''; }, 1800);
+        });
+      } else {
+        $('#cEstado').textContent = 'Copiado';
+        setTimeout(function () { $('#cEstado').textContent = ''; }, 1800);
+      }
+    });
+
+    var btnLimpiar = $('#cLimpiar');
+    if (btnLimpiar) btnLimpiar.addEventListener('click', function () {
+      lista.querySelectorAll('.cj').forEach(function (c) { c.checked = false; });
+      ['cEquipo', 'cGusto', 'cMejora', 'cPreg'].forEach(function (id) {
+        var el = $('#' + id); if (el) el.value = '';
+      });
+    });
+  }
+
   /* ---------------- arranque ---------------- */
   function iniciar() {
     if (!MODULOS.length) {
@@ -352,6 +428,7 @@
     pintarGrid();
     pintarProgreso();
     iniciarEventos();
+    iniciarCotejo();
 
     var m = location.hash.match(/^#modulo=(.+)$/);
     if (m) abrirDetalle(decodeURIComponent(m[1]));
